@@ -1,0 +1,77 @@
+<div ng-controller="automobiliCtrl">
+	<h1>Aplikacija za vodjene autoplaca</h1>
+	<br />
+	<form>
+		<div>
+			<label>Marka:</label>
+			<select class="form-control" ng-change="loadModele()" ng-options="marka.naziv for marka in marke track by marka.id" ng-model="automobil.model.marka"></select>
+			<br />
+			<label>Model:</label>
+			<select class="form-control" ng-options="model.naziv for model in markeModeli track by model.id" ng-model="automobil.model" ng-disabled="!got_markeModeli"></select>
+			<br />
+			<label>Godiste:</label>
+			<input class="form-control" ng-model="automobil.godiste" placeholder="Godiste"/>
+			<br />
+			<label>Kilometraza:</label>
+			<input class="form-control" ng-model="automobil.kilometraza" placeholder="Kilometraza"/>
+			<br />
+			<label>Cena:</label>
+			<input class="form-control" ng-model="automobil.cena" placeholder="Cena"/>
+		</div>
+		<br />
+		<button class="btn btn-sm btn-primary" ng-click="saveOrEdit(automobil.id)">Dodaj</button>
+	</form>
+	<br />
+	<form>
+		<div>
+			<label>Model:</label>
+			<select class="form-control" ng-model="trazeniAuto.model">
+				<option value="">All</option>
+				<option value="{{item.id}}" ng-repeat="item in modeli">{{item.naziv}}</option>
+			</select>
+			<br />
+			<label>Cena od:</label>
+			<input class="form-control" ng-model="trazeniAuto.cenaOd" placeholder="Cena od"/>
+			<br />
+			<label>Cena do:</label>
+			<input class="form-control" ng-model="trazeniAuto.cenaDo" placeholder="Cena do"/>
+			<br />
+			<label>Godiste od:</label>
+			<input class="form-control" ng-model="trazeniAuto.godOd" placeholder="Godiste od"/>
+			<br />
+			<label>Godiste do:</label>
+			<input class="form-control" ng-model="trazeniAuto.godDo" placeholder="Godiste do"/>
+		</div>
+		<br />
+		<button class="btn btn-sm btn-primary" ng-disabled="!got_modele" ng-click="search()">Filtriraj</button>
+	</form>
+	<br />
+	<div class="btn-group pull-right">
+		<button class="btn btn-sm btn-primary" ng-click="nazad()" ng-disabled="pageNum==0">Prethodna</button>
+		<button class="btn btn-sm btn-primary" ng-click="napred()" ng-disabled="pageNum == totalPages - 1">Sledeća</button>
+	</div>
+	<table class="table table-striped">
+		<tr>
+			<th>Marka</th>
+			<th>Model</th>
+			<th>Cena</th>
+			<th>Godiste</th>
+			<th>Kilometraza</th>
+			<th>Akcije</th>
+		</tr>
+		<tr ng-repeat="item in automobili">
+			<td>{{item.model.marka.naziv}}</td>
+			<td>{{item.model.naziv}}</td>
+			<td>{{item.cena}}e</td>
+			<td>{{item.godiste}}</td>
+			<td>{{item.kilometraza}}</td>
+			<td>
+				<p>
+					<button class="btn btn-sm btn-danger" ng-click="delete(item.id)">Obrisi</button>
+					<button class="btn btn-sm btn-warning" ng-click="editInPage(item.id)">Izmeni</button>
+					<button class="btn btn-sm btn-warning" ng-click="editAutomobilInSinglePage(item.id)">Izmeni na novoj stranici</button>
+				</p>
+			</td>
+		</tr>
+	</table>
+</div>

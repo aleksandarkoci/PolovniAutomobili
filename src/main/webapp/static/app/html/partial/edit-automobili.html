@@ -1,0 +1,22 @@
+<div ng-controller="editAutomobilaCtrl">
+	<form>
+		<div>
+			<label>Marka:</label>
+			<select class="form-control" ng-change="loadModele()" ng-options="marka.naziv for marka in marke track by marka.id" ng-model="automobil.model.marka"></select>
+			<br />
+			<label>Model:</label>
+			<select class="form-control" ng-options="model.naziv for model in markeModeli track by model.id" ng-model="automobil.model"></select>
+			<br />
+			<label>Godiste:</label>
+			<input class="form-control" ng-model="automobil.godiste" placeholder="Godiste"/>
+			<br />
+			<label>Kilometraza:</label>
+			<input class="form-control" ng-model="automobil.kilometraza" placeholder="Kilometraza"/>
+			<br />
+			<label>Cena:</label>
+			<input class="form-control" ng-model="automobil.cena" placeholder="Cena"/>
+		</div>
+		<br />
+		<button class="btn btn-sm btn-primary" ng-click="editAuta(automobil.id)">Izmeni</button>
+	</form>
+</div>
